@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Facebook Clone - New Dashboard</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+     
+:root {
+  --fb-blue: #1877f2;
+  --fb-green: #42b72a;
+  --fb-bg: #f0f2f5;
+  --fb-dark: #1c1e21;
+  --card-bg: #fff;
+  --text-gray: #555;
+  --shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+/* ------------------ GLOBAL ------------------ */
+body {
+  font-family: "Poppins", Arial, sans-serif;
+  margin: 0;
+  background-color: var(--fb-bg);
+  color: var(--text-gray);
+}
+
+.page-section {
+  display: none;
+  min-height: 100vh;
+}
+
+.form-hidden {
+  display: none !important;
+}
+
+button {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* ------------------ AUTH PAGE ------------------ */
+#auth-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 20px;
+}
+
+.auth-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 950px;
+  width: 100%;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+.auth-text {
+  flex: 1;
+  min-width: 300px;
+}
+
+.auth-text h1 {
+  color: var(--fb-blue);
+  font-size: 3.8rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.auth-text p {
+  font-size: 1.4rem;
+  margin-top: 12px;
+  color: var(--fb-dark);
+}
+
+.auth-container {
+  background: var(--card-bg);
+  padding: 25px 25px 30px;
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+  width: 380px;
+}
+
+.auth-container input,
+.auth-container select {
+  width: 100%;
+  padding: 12px 14px;
+  margin-bottom: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+  background: #fafafa;
+}
+
+.auth-container input:focus,
+.auth-container select:focus {
+  border-color: var(--fb-blue);
+  background: #fff;
+  outline: none;
+}
+
+.login-btn {
+  background: var(--fb-blue);
+  color: white;
+  font-weight: 600;
+  border: none;
+  width: 100%;
+  padding: 12px;
+  font-size: 18px;
+  border-radius: 6px;
+}
+
+.login-btn:hover {
+  background: #166fe5;
+}
+
+.create-account-btn {
+  background: var(--fb-green);
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.create-account-btn:hover {
+  background: #36a420;
+}
+
+.toggle-link {
+  display: block;
+  margin-top: 15px;
+  text-decoration: none;
+  color: var(--fb-blue);
+  font-size: 14px;
+  transition: color 0.2s;
+}
+.toggle-link:hover {
+  text-decoration: underline;
+}
+
+/* Signup Section */
+.signup-header {
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+}
+.signup-header h2 {
+  font-size: 28px;
+  margin: 0;
+}
+.signup-header p {
+  color: #666;
+  font-size: 13px;
+}
+
+.signup-name-fields {
+  display: flex;
+  gap: 10px;
+}
+.signup-name-fields input {
+  flex: 1;
+}
+
+.signup-date-label,
+.signup-gender-label {
+  display: block;
+  text-align: left;
+  color: #777;
+  font-size: 13px;
+  margin-bottom: 5px;
+}
+
+.signup-date-fields,
+.signup-gender-fields {
+  display: flex;
+  gap: 10px;
+}
+
+.signup-gender-fields label {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #ccc;
+  padding: 8px 10px;
+  border-radius: 6px;
+  background: #fafafa;
+  cursor: pointer;
+}
+
+.signup-terms p {
+  font-size: 11px;
+  color: #888;
+  text-align: left;
+  margin-top: 10px;
+}
+.signup-terms a {
+  color: var(--fb-blue);
+}
+
+/* ------------------ DASHBOARD ------------------ */
+#dashboard-page {
+  display: flex;
+  flex-direction: column;
+  background: #e9ebee;
+}
+
+/* Navbar */
+#navbar {
+  background: #fff;
+  padding: 10px 25px;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: var(--shadow);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+#navbar-logo {
+  color: var(--fb-blue);
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+#logout-btn {
+  background: var(--fb-blue);
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-weight: 600;
+}
+#logout-btn:hover {
+  background: #166fe5;
+}
+
+/* Layout Grid */
+#main-content {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  gap: 20px;
+  max-width: 1200px;
+  width: 100%;
+  margin: 20px auto;
+}
+
+/* Sidebars */
+#sidebar-left,
+#sidebar-right {
+  padding: 10px;
+}
+
+.sidebar-card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+  padding: 15px;
+  margin-bottom: 20px;
+}
+.sidebar-card h3 {
+  font-size: 1.1rem;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 6px;
+  color: var(--fb-dark);
+  margin-bottom: 10px;
+}
+
+/* Links */
+.nav-link {
+  display: block;
+  padding: 6px 0;
+  color: #666;
+  text-decoration: none;
+  font-size: 15px;
+}
+.nav-link:hover {
+  color: var(--fb-blue);
+  text-decoration: underline;
+}
+.nav-link.active {
+  font-weight: bold;
+  color: var(--fb-blue);
+}
+
+/* Main Feed */
+#main-feed {
+  padding: 0 10px;
+}
+.create-post-card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: var(--shadow);
+  margin-bottom: 20px;
+  text-align: center;
+}
+.create-post-card textarea {
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 8px;
+  resize: none;
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+.post-btn {
+  background: var(--fb-blue);
+  color: #fff;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 6px;
+  font-weight: 600;
+  width: 100%;
+}
+.post-btn:hover {
+  background: #166fe5;
+}
+
+.post-card {
+  background: #fff;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+  margin-bottom: 15px;
+}
+.post-card h4 {
+  margin: 0 0 5px 0;
+  color: var(--fb-dark);
+  font-size: 1rem;
+}
+.post-card p {
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+/* Friend Cards */
+.friend-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+  border-bottom: 1px solid #eee;
+}
+.friend-card h4 {
+  font-size: 14px;
+  margin: 0;
+}
+.friend-card button {
+  border: none;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.add-btn {
+  background: var(--fb-green);
+  color: #fff;
+}
+.add-btn:hover {
+  background: #36a420;
+}
+
+.unfriend-btn {
+  background: #65676b;
+  color: #fff;
+}
+.unfriend-btn:hover {
+  background: #4b4f56;
+}
+
+.accept-btn {
+  background: var(--fb-blue);
+  color: #fff;
+}
+.accept-btn:hover {
+  background: #166fe5;
+}
+
+.reject-btn {
+  background: #f0f2f5;
+  border: 1px solid #ccc;
+  color: #333;
+}
+.reject-btn:hover {
+  background: #e4e6eb;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .auth-content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #main-content {
+    grid-template-columns: 1fr;
+    padding: 0 10px;
+  }
+
+  #sidebar-left,
+  #sidebar-right {
+    display: none;
+  }
+
+  #navbar {
+    padding: 8px 15px;
+  }
+}
+
+    </style>
+  </head>
+
+  <body>
+    <section id="auth-page" class="page-section" style="display: flex">
+      <div class="auth-content">
+        <div class="auth-text">
+          
+          </p>
+        </div>
+
+        <div class="auth-container">
+          <form id="login-form">
+            <input
+              type="text"
+              id="login-username"
+              placeholder="Email or phone number"
+              required
+            />
+            <input
+              type="password"
+              id="login-password"
+              placeholder="Password"
+              required
+            />
+            <button type="submit" class="login-btn">Log In</button>
+            <a class="toggle-link" href="#">Forgotten password?</a>
+            <hr
+              style="
+                border: none;
+                border-top: 1px solid #dadde1;
+                margin: 20px 0;
+              "
+            />
+            <a class="create-account-btn" onclick="toggleAuthForm(false)"
+              >Create new account</a
+            >
+          </form>
+
+          <form id="signup-form" class="form-hidden">
+            <div class="signup-header">
+              <h2>Create a new account</h2>
+              <p>It’s quick and easy.</p>
+            </div>
+
+            <div class="signup-name-fields">
+              <input
+                type="text"
+                id="signup-firstname"
+                placeholder="First name"
+                required
+              />
+              <input
+                type="text"
+                id="signup-surname"
+                placeholder="Surname"
+                required
+              />
+            </div>
+
+            <input
+              type="text"
+              id="signup-username"
+              placeholder="Mobile number or email"
+              required
+            />
+            <input
+              type="password"
+              id="signup-password"
+              placeholder="New password"
+              required
+            />
+
+            <label class="signup-date-label">Birthday</label>
+            <div class="signup-date-fields">
+              <select id="birth-day" required>
+                <option value="">Day</option>
+              </select>
+              <select id="birth-month" required>
+                <option value="">Month</option>
+              </select>
+              <select id="birth-year" required>
+                <option value="">Year</option>
+              </select>
+            </div>
+
+            <label class="signup-gender-label">Gender</label>
+            <div class="signup-gender-fields">
+              <label>
+                Female
+                <input type="radio" name="gender" value="Female" required />
+              </label>
+              <label>
+                Male <input type="radio" name="gender" value="Male" required />
+              </label>
+              <label>
+                Custom
+                <input type="radio" name="gender" value="Custom" required />
+              </label>
+            </div>
+
+            <div class="signup-terms">
+              <p>
+                By clicking Sign Up, you agree to our <a href="#">Terms</a>,
+                <a href="#">Privacy Policy</a> and
+                <a href="#">Cookies Policy</a>.
+              </p>
+            </div>
+
+            <button
+              type="submit"
+              class="create-account-btn"
+              style="width: 60%; font-size: 18px"
+            >
+              Sign Up
+            </button>
+            <a class="toggle-link" onclick="toggleAuthForm(true)"
+              >Already have an account?</a
+            >
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section id="dashboard-page" class="page-section">
+      <nav id="navbar">
+        <div id="navbar-logo">facebook</div>
+        <button id="logout-btn">Logout</button>
+      </nav>
+
+      <div id="main-content">
+        <aside id="sidebar-left">
+          <div class="sidebar-card user-info-card">
+            <h3 id="sidebar-name"></h3>
+            <p id="sidebar-details" style="font-size: 14px; color: #606770"></p>
+            <hr
+              style="border: none; border-top: 1px solid #eee; margin: 10px 0"
+            />
+            <p style="margin: 0">
+              <strong id="friend-count">0</strong> Friends
+            </p>
+          </div>
+
+          <div class="sidebar-card" style="margin-top: 20px">
+            <h3>Navigation</h3>
+            <a href="#" class="nav-link active">🏠 Home</a>
+            <a href="#" class="nav-link">👥 Friends</a>
+            <a href="#" class="nav-link">👤 Profile</a>
+          </div>
+        </aside>
+
+        <main id="main-feed">
+          <div class="create-post-card">
+            <textarea
+              id="post-input"
+              placeholder="What's on your mind? (Posts are disabled in this demo)"
+              rows="3"
+              disabled
+            ></textarea>
+            <button class="post-btn" disabled>Post</button>
+          </div>
+
+          <div class="post-card">
+            <h4>Welcome to your Feed!</h4>
+            <p style="margin-bottom: 10px; color: #606770; font-size: 12px">
+              Admin · 10hr ago
+            </p>
+            <p>
+             Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam voluptas animi odio asperiores minus quidem, excepturi iure tenetur quas doloremque quasi distinctio rem itaque est vel nobis accusantium recusandae eligendi!
+            </p>
+          </div>
+
+          <div class="post-card">
+            <h4>The Power of Frontend</h4>
+            <p style="margin-bottom: 10px; color: #606770; font-size: 12px">
+              Dev Team · 3hr ago
+            </p>
+            <p>
+             Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores, accusamus facere? Dolor fugiat voluptas quia dolorum odit a minus eos distinctio ut qui, vitae in, molestias debitis quidem 
+            </p>
+          </div>
+        </main>
+
+        <aside id="sidebar-right">
+          <div class="sidebar-card" id="friends-list-card">
+            <h3>Your Friends (<span id="friends-list-count">0</span>)</h3>
+            <div id="friends-list-container">No friends yet.</div>
+          </div>
+
+          <div class="sidebar-card" id="friend-requests-card">
+            <h3>Friend Requests</h3>
+            <div id="request-list-container">No new requests.</div>
+          </div>
+
+          <div class="sidebar-card">
+            <h3>People You May Know</h3>
+            <div id="suggestion-list-container"></div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <script src="index.js"></script>
+  </body>
+</html>
